@@ -43,8 +43,7 @@
     "react-scripts": "4.0.3",
     "react-toastify": "^7.0.3",
     "sass-loader": "^11.0.1",
-    "typescript": "^4.2.3",
-    "web-vitals": "^1.0.1"
+    "typescript": "^4.2.3"
   },
   "scripts": {
     "start": "react-scripts start",

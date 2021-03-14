@@ -1,5 +1,5 @@
 # OFX QUOTE  
-The OFX QUOTE is a simple Currency Converter with react application for searching latest currency.
+The OFX QUOTE is a simple Currency Converter with react application for searching latest currency. The project has been build up by React.js, React Hooks, Sass and Typescript.
 
 ## Usage
 Please make sure you have installed node / yarn, then you can use npm install / yarn install to running the application.

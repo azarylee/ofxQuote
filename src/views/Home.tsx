@@ -27,7 +27,7 @@ export default function() {
 
     const [from, setFrom] = useState(currencies[0].code);
     const [to, setTo] = useState(currencies[1].code);
-    const [amount, setAmount] = useState('');
+    const [amount, setAmount] = useState('0.00');
 
     const history = useHistory();
 
@@ -40,7 +40,7 @@ export default function() {
                     name="firstName" 
                     type="text" 
                     label="First Name" 
-                    row="row-2" 
+                    row="col-2" 
                     value={firstName}
                     changeText={fName => {
                         const first = fName.replace(/[^a-zA-Z]/g, '');
@@ -60,7 +60,7 @@ export default function() {
                     name="lastName" 
                     type="text" 
                     label="Last Name" 
-                    row="row-2" 
+                    row="col-2" 
                     value={lastName}
                     changeText={lName => {
                         const last = lName.replace(/[^a-zA-Z]/g, '');
@@ -83,7 +83,7 @@ export default function() {
                     name="email" 
                     type="text" 
                     label="Email" 
-                    row="row-1" 
+                    row="col-1" 
                     value={email}
                     style={{marginBottom: 16}}
                     changeText={emailText => {
@@ -110,7 +110,7 @@ export default function() {
                     isRequired={1} 
                     name="phoneNumber" 
                     label="Telephone / Mobile" 
-                    row="row-1"
+                    row="col-1"
                     value={phoneNumber.replace(/[^0-9]/ig,'')}
                     changeSelect={code => {
                         setRegionCode(code);
@@ -119,7 +119,7 @@ export default function() {
                         setPhoneNumber(number);
                     }}
                     blur={number => {
-                        if (!number && !regionCode) {
+                        if (!number) {
                             toast.error('Warning: Please enter your Phone Number.', {
                                 bodyClassName: 'error-body',
                                 progressClassName: 'progress-error',
@@ -139,16 +139,12 @@ export default function() {
                     isRequired={1} 
                     name="from" 
                     label="From Currency" 
-                    row="row-2"
+                    row="col-2"
                     changeSelect={currency => {
                         setFrom(currency);
-                    }}
-                    blur={number => {
-                        if (!number) {
-                            toast.error('Warning: Please enter your Phone Number.', {
-                                bodyClassName: 'error-body',
-                                progressClassName: 'progress-error',
-                            });
+                        if (currency === to) {
+                            const filter = currencies.filter(c => c.code !== currency);
+                            setTo(filter[0].code);
                         }
                     }}
                 >
@@ -162,21 +158,13 @@ export default function() {
                     isRequired={1} 
                     name="to" 
                     label="To Currency" 
-                    row="row-2" 
-                    changeSelect={number => {
-                        setTo(number);
-                    }}
-                    blur={number => {
-                        if (!number) {
-                            toast.error('Warning: Please enter your Phone Number.', {
-                                bodyClassName: 'error-body',
-                                progressClassName: 'progress-error',
-                            });
-                        }
+                    row="col-2" 
+                    changeSelect={currency => {
+                        setTo(currency);
                     }}
                 >
                     {
-                        (currencies as CurrenciesData).filter(c => c.code !== from).map((currency) => (
+                        (currencies as CurrenciesData).filter((c) => c.code !== from).map((currency) => (
                             <option value={currency.code} key={currency.id}>
                                 {currency.name} [{currency.code}]
                             </option>
@@ -190,17 +178,16 @@ export default function() {
                     name="amount" 
                     type="text" 
                     label="Amount" 
-                    row="row-2"
-                    value={Number(amount.replace(/,/g, '')).toLocaleString('en-US', {minimumFractionDigits: 2})}
+                    row="col-2"
+                    value={amount}
                     changeText={amountText => {
-                        setAmount(amountText);
-                        if (!amountText) {
-                            toast.error('error: This Email is empty', {
-                                bodyClassName: 'error-body',
-                                progressClassName: 'progress-error',
-                            });
-                        }
+                        let number = 0;
+                        if (amountText) number = parseFloat(amountText.replace(/,/g, ''));
+                        setAmount(number.toString());
                     }}
+                    blur={amountText => {
+                        setAmount(Number(amountText).toLocaleString('en-US', {minimumFractionDigits: 2}))
+                    }}    
                 />  
             </div>
             <div style={{flex: '0 0 98%', justifyContent: 'center', display: 'flex'}}>
@@ -208,6 +195,7 @@ export default function() {
                     className="btn roundBtn primary" 
                     text="GET QUOTE" 
                     onClick={() => {
+                        // check the first name is not empty
                         if (!firstName) {
                             toast.warn('This First Name is empty', {
                                 position: "top-right",
@@ -219,6 +207,7 @@ export default function() {
                             return;
                         }
 
+                        // check the last name is not empty
                         if (!lastName) {
                             toast.warn('This Last Name is empty', {
                                 position: "top-right",
@@ -229,10 +218,19 @@ export default function() {
                             });
                             return;
                         }
+
+                        // check the phone number and region code is not empty
+                        if (!phoneNumber) {
+                            toast.error('Warning: Please enter your Phone Number.', {
+                                bodyClassName: 'error-body',
+                                progressClassName: 'progress-error',
+                            });
+                            return;
+                        }
                         
                         const quota = parseFloat(amount.replace(/,/g,'')).toFixed(2);
 
-                        if (!quota) {
+                        if (!Number(quota)) {
                             toast.warn('The amount cannot be Zero.', {
                                 position: "top-right",
                                 autoClose: 5000,
@@ -247,7 +245,7 @@ export default function() {
                             method: 'get',
                             mode: 'cors',
                             headers: {
-                                'content-type': 'application/json',
+                                'Content-Type': 'text/plain', 
                             },
                         })
                         .then(res => res.json())
@@ -270,6 +268,7 @@ export default function() {
                                     amount: quota,
                                     toCountry: to,
                                     deliveryAmount: result.CustomerAmount,
+                                    phoneNumber: regionCode + phoneNumber,
                                 } })
                         })
                         .catch(err => {

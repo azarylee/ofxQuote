@@ -17,7 +17,6 @@ export function SelfInput(props: {
     value: string
 }) {
     const { type, className, name, placeHolder, changeText, blur, value } = props;
-    // const [formatNumber, setFormatNumber] = useState('');
 
     return (
         <input 
@@ -51,7 +50,8 @@ export function InputGroup(props: {
     blur?: (text: string) => void,
     changeText: (text: string) => void
 }) {
-    const { name, isRequired, label, type, className = 'default', row='row-1', style, changeText, blur, value } = props;
+    const { name, isRequired, label, type, className = 'default', row='col-1', style, changeText, blur, value } = props;
+    
     return (
         <div className={`inputGroup ${row}`} style={style}>
             <label htmlFor={name}>
@@ -107,7 +107,7 @@ export function PhoneInputGroup(props: {
     blur?: (text: string) => void,
     changeSelect: (text: string) => void,
 }) {
-    const { name, isRequired, label, row='row-1', children, value, changeText, blur, changeSelect } = props;
+    const { name, isRequired, label, row='col-1', children, value, changeText, blur, changeSelect } = props;
 
     return (
         <div className={`inputGroup ${row}`}>
@@ -145,7 +145,8 @@ export function SelectInputGroup(props: {
     blur?: (text: string) => void,
     changeSelect: (text: string) => void,
 }) {
-    const { name, isRequired, label, row='row-1', children, changeSelect } = props;
+    const { name, isRequired, label, row='col-1', children, changeSelect } = props;
+    
     return (
         <div className={`inputGroup ${row}`}>
             <label htmlFor={name}>

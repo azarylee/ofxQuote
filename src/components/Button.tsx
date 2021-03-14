@@ -8,6 +8,7 @@ export default function(props:{
     onClick: () => void
 }) {
     const { text, className, style, onClick } = props;
+    
     return (
         <button 
             className={className} 

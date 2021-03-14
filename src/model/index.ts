@@ -17,7 +17,8 @@ export type QuoteData = {
     currency: string,
     amount: number,
     toCountry: string,
-    deliveryAmount: number
+    deliveryAmount: number,
+    phoneNumber: string,
 }
 export type Quote = {
     CustomerRate: number,

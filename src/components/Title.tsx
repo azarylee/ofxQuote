@@ -7,6 +7,7 @@ export default function (props: {
     underline?: boolean,
 }) {
     const { title, className, style, underline = true} = props
+    
     return (
         <div className={className} style={style}>
             <h3>{title}</h3>
