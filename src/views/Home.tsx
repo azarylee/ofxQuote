@@ -190,7 +190,7 @@ export default function() {
                     }}    
                 />  
             </div>
-            <div style={{flex: '0 0 98%', justifyContent: 'center', display: 'flex'}}>
+            <div style={{flex: '1', justifyContent: 'center', display: 'flex'}}>
                 <Button 
                     className="btn roundBtn primary" 
                     text="GET QUOTE" 
