@@ -1,0 +1,68 @@
+@import './colors.scss';
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        span {
+            letter-spacing: 1px;
+        }
+    }
+}
+
+.selfInputdefault {
+    padding: 8px 10px;
+    border: 1px solid $darkGrey;
+    border-radius: 5px;
+
+    &::placeholder {
+        font-family: "Saira Extra Condensed", "BenchNine", Arial, Helvetica, sans-serif;
+        letter-spacing: 1px;
+        color: lightGrey;
+    }
+}
+
+.SelectGroup {
+    display: flex;
+    position: relative;
+    width: 100%;
+
+    .self-select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        padding: 5px 10px;
+        width: 100%;
+        border: 1px solid $darkGrey;
+        border-radius: 5px;
+        font-family: "Saira Extra Condensed", "BenchNine", Arial, Helvetica, sans-serif;
+    }
+    
+    .arrow {
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        transform: translate(0%, -50%);
+    
+        img {
+            width: 10px;
+        }
+    }
+}
+
+.phoneNumber {
+    width: 100px;
+
+    .self-select {
+        border-right-color: transparent;
+        border-radius: 5px 0 0 5px;
+        background-color: $white;
+    }
+}
+
+.SelectGroup ~input {
+    border-radius: 0 5px 5px 0;
+    flex: 1;
+    border: 1px solid $darkGrey;
+}

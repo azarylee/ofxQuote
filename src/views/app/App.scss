@@ -1,0 +1,16 @@
+@import '../../style/colors.scss';
+@import url('https://fonts.googleapis.com/css2?family=Saira+Extra+Condensed:wght@100;400&display=swap');
+
+.quoteTitle {
+    h3 {
+        color: $black;
+        margin: 0;
+        letter-spacing: 3px;
+        font-weight: 400;
+        font-size: 32px;
+    }
+    .underline {
+        background-color: $lightBlue;
+        height: 2px;
+    }
+}

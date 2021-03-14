@@ -1,0 +1,26 @@
+@import './colors.scss';
+
+.btn {
+    outline: none;
+    border: 1px $grey solid;
+    cursor: pointer;
+    width: 25vw;
+
+    @media (max-width: 415px) {
+        width: 45vw;
+    }
+}
+
+.roundBtn {
+    height: 40px;
+    padding: 6.4px 20px;
+    font-size: 1rem;
+    border-radius: 40px;
+}
+
+.primary {
+    background-color: $darkBlue;
+    color: $lightBlue;
+    font-family: "Saira Extra Condensed", "BenchNine", Arial, Helvetica, sans-serif;
+    letter-spacing: 2px;
+}
